@@ -91,7 +91,7 @@ class EditActivity : AppCompatActivity() {
         binding.deleteBtn.setOnClickListener {
             realm.executeTransaction {
                 val todoData = realm.where<TodoList>()
-                    .equalTo("id", dataId)?.findFirst()?.deleteFromRealm()
+                    .equalTo("id", dataId).findFirst()?.deleteFromRealm()
             }
             Toast.makeText(applicationContext, "削除しました", Toast.LENGTH_SHORT).show()
             finish()
