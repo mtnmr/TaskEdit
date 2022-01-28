@@ -23,6 +23,7 @@ class CustomRecyclerViewAdapter(realmResults:RealmResults<TodoList>):RecyclerVie
         val todoData = rResults[position]
         holder.todoText?.text = todoData?.todoText.toString()
         holder.statusText?.text = todoData?.status.toString()
+        holder.numText?.text = todoData?.num.toString()
 
         holder.itemView.setOnClickListener{
             val intent = Intent(it.context, EditActivity::class.java)

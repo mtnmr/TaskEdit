@@ -68,9 +68,14 @@ class EditActivity : AppCompatActivity() {
                         realm.executeTransaction {
                             val maxId = realm.where<TodoList>().max("id")
                             val nextId = (maxId?.toLong() ?: 0L) + 1L
+
+                            val maxNum = realm.where<TodoList>().max("num")
+                            val nextNum = (maxNum?.toInt() ?: -1) + 1
+
                             val todoList = realm.createObject<TodoList>(nextId)
                             todoList.todoText = contentText
                             todoList.status = status
+                            todoList.num = nextNum
                         }
                     }
                     else ->{
