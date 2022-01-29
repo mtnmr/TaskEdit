@@ -57,12 +57,6 @@ class MainActivity : AppCompatActivity() {
                 val fromPosition = viewHolder.bindingAdapterPosition
                 val toPosition = target.bindingAdapterPosition
 
-//                realm.executeTransaction {
-//                    val movingTodo = realmResults[fromPosition]
-//                    realmResults.deleteFromRealm(fromPosition)
-//                    realmResults.add(toPosition, movingTodo)
-//                }
-
                 realm.executeTransaction {
                     realmResults[fromPosition]?.num = toPosition
                     realmResults[toPosition]?.num = fromPosition
@@ -77,13 +71,21 @@ class MainActivity : AppCompatActivity() {
 //                    }
                 }
 
-                realm.close()
 
                 recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
 
+//                realmResults = realm.where(TodoList::class.java)
+//                    .findAll()
+//                    .sort("num", Sort.ASCENDING)
+//
+//                adapter = CustomRecyclerViewAdapter(realmResults)
 
                 return true
             }
+
+            //現状ではデータを移動した後一時的に順番が変わるが、画面遷移し戻ってくると最初の順番に戻っている
+            //realmの結果を更新して反映するところができていない。
+
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewHolder?.let {
